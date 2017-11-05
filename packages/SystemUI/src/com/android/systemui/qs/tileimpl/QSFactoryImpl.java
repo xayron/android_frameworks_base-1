@@ -39,6 +39,7 @@ import com.android.systemui.qs.tiles.FlashlightTile;
 import com.android.systemui.qs.tiles.HeadsUpTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.IntentTile;
+import com.android.systemui.qs.tiles.LiveDisplayTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
@@ -81,6 +82,8 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<CaffeineTile> mCaffeineTileProvider;
     private final Provider<HeadsUpTile> mHeadsUpTileProvider;
     private final Provider<ScreenRecordTile> mScreenRecordTileProvider;
+    private final Provider<LiveDisplayTile> mLiveDisplayTileProvider;
+
     private QSTileHost mHost;
 
     @Inject
@@ -105,7 +108,9 @@ public class QSFactoryImpl implements QSFactory {
             Provider<UiModeNightTile> uiModeNightTileProvider,
             Provider<CaffeineTile> caffeineTileProvider,
             Provider<HeadsUpTile> headsUpTileProvider,
-            Provider<ScreenRecordTile> screenRecordTileProvider) {
+            Provider<ScreenRecordTile> screenRecordTileProvider,
+            Provider<LiveDisplayTile> liveDisplayTileProvider) {
+
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
         mCellularTileProvider = cellularTileProvider;
@@ -128,6 +133,7 @@ public class QSFactoryImpl implements QSFactory {
         mCaffeineTileProvider = caffeineTileProvider;
         mHeadsUpTileProvider = headsUpTileProvider;
         mScreenRecordTileProvider = screenRecordTileProvider;
+        mLiveDisplayTileProvider = liveDisplayTileProvider;
     }
 
     public void setHost(QSTileHost host) {
@@ -187,6 +193,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mHeadsUpTileProvider.get();
             case "screenrecord":
                 return mScreenRecordTileProvider.get();
+            case "livedisplay":
+                return mLiveDisplayTileProvider.get();
         }
 
         // Intent tiles.
